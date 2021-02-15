@@ -20,10 +20,16 @@ public class Admin {
 
     public boolean requstSuspiciousAcctReport(BankAccount suspicious){
         suspicious.transactionHistory();
+        //What exactly will suspicious activity look like? Withdrawals over a certain amount maybe? What will the transaction history return?
         return false;
     }
 
     public static void freezeAccount(BankAccount toFreeze){
+        
+        
+    }
+
+    public static void unfreezeAccount(BankAccount unfreeze){
         
     }
 }

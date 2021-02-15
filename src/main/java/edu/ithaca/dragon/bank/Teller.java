@@ -1,10 +1,10 @@
 public class Teller{
 
-    public BankAccount createAccount(){
+    public void createAccount(){
 
     }
 
-    public void closeAccount(BankAccount ba){
+    public void closeAccount(Client c, String which){
         
     }
     

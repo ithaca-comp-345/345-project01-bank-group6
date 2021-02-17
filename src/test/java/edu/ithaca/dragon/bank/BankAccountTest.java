@@ -92,4 +92,16 @@ class BankAccountTest {
         assertFalse(BankAccount.isAmountValid(20.0000000006));
     }
 
+    @Test
+    void compoundInterestTest(){
+        SavingsAccount sa = new SavingsAccount("a@b.com", 200, 500, 0.05);
+        sa.compoundInterest();
+        assertEquals(210, sa.getBalance());
+        SavingsAccount sa2 = new SavingsAccount("a@b.com", 0, 500, 0.05);
+        sa2.compoundInterest();
+        assertEquals(0, sa2.getBalance());
+        SavingsAccount sa3 = new SavingsAccount("a@b.com", 200, 500, 1);
+        sa3.compoundInterest();
+        assertEquals(400, sa3.getBalance());
+    }
 }

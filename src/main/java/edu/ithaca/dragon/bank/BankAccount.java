@@ -5,7 +5,11 @@ import java.math.BigDecimal;
 public class BankAccount {
 
     private String email;
+<<<<<<< HEAD
      double balance;
+=======
+    protected double balance;
+>>>>>>> master
 
     /**
      * @throws IllegalArgumentException if email is invalid or if amount is invalid

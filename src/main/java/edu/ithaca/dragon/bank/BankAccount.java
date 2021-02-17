@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class BankAccount {
 
     private String email;
-    private double balance;
+     double balance;
 
     /**
      * @throws IllegalArgumentException if email is invalid or if amount is invalid

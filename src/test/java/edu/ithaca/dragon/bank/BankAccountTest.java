@@ -94,14 +94,15 @@ class BankAccountTest {
 
     @Test
     void compoundInterestTest(){
-        SavingsAccount s1 = new SavingsAccount("a@b.com", 1000,100,0.01);
-        try{
-        s1.compoundInterest();
-        }
-        catch(Exception e){}
-        assertEquals(1010, s1.getBalance());
-        SavingsAccount s2 = new SavingsAccount("a@b.com", 1000,100,0.001);
-        assertThrows(Exception.class, ()->s2.compoundInterest());
-    }
 
+        SavingsAccount sa = new SavingsAccount("a@b.com", 200, 500, 0.05);
+        sa.compoundInterest();
+        assertEquals(210, sa.getBalance());
+        SavingsAccount sa2 = new SavingsAccount("a@b.com", 0, 500, 0.05);
+        sa2.compoundInterest();
+        assertEquals(0, sa2.getBalance());
+        SavingsAccount sa3 = new SavingsAccount("a@b.com", 200, 500, 1);
+        sa3.compoundInterest();
+        assertEquals(400, sa3.getBalance());
+    }
 }

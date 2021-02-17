@@ -11,14 +11,10 @@ public class SavingsAccount extends BankAccount{
         dailyMaxWithdrawalLimit = dailyMaxWithdrawalLimitIn;
         interestRate = ir;
     }
-    public void compoundInterest() throws Exception{
-        double balanceWithInterest = balance*interestRate*(1/(double)365);
-        if(isAmountValid(balanceWithInterest)){
-            throw new Exception("invalid amount");
-        }
-        else{
-            balance = balanceWithInterest;
-        }
+
+    public void compoundInterest(){
+        interest=balance*interestRate;
+        balance += interest;
     }
     public double getInterest(){
         return interest;

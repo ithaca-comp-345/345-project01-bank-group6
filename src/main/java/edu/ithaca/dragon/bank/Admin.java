@@ -10,7 +10,7 @@ public class Admin {
         this.allAccounts= allAccounts;
     }
 
-    public double totalMoney(List<BankAccount> allAccounts){
+    public double totalMoney(){
         double totalSum=0;
         for(int i=0; i< allAccounts.size(); i++){
             totalSum= totalSum + allAccounts.get(i).getBalance();
@@ -18,9 +18,8 @@ public class Admin {
         return totalSum;
     }
 
-    public boolean requstSuspiciousAcctReport(BankAccount suspicious){
-        suspicious.transactionHistory();
-        //What exactly will suspicious activity look like? Withdrawals over a certain amount maybe? What will the transaction history return?
+    public boolean requestSuspiciousAcctReport(BankAccount suspicious){
+        //suspicious.transactionHistory();
         return false;
     }
 

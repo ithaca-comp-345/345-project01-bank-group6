@@ -20,15 +20,30 @@ public class Admin {
 
     public boolean requestSuspiciousAcctReport(BankAccount suspicious){
         //suspicious.transactionHistory();
+        //will use getTransaction History
+        //will look at recent withdrawal
+        //return true if withdrawal is over 500
         return false;
     }
 
     public static void freezeAccount(BankAccount toFreeze){
-        
+        if(toFreeze.getFrozenStatus()== true){
+            throw new IllegalArgumentException("Bank account is already frozen");
+        }
+        else{
+            toFreeze.setFrozenStatus(true);
+            System.out.println("This bank account has been frozen");
+        }
         
     }
 
     public static void unfreezeAccount(BankAccount unfreeze){
-        
+        if(unfreeze.getFrozenStatus()== false){
+            throw new IllegalArgumentException("Bank account is not frozen");
+        }
+        else{
+            unfreeze.setFrozenStatus(false);
+            System.out.println("This bank account has been unfrozen");
+        }
     }
 }

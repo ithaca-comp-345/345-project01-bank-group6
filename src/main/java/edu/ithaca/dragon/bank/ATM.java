@@ -1,7 +1,11 @@
 package edu.ithaca.dragon.bank;
 
 public class ATM extends BankingTool{
+    private double fundsOnSite;
 
+    public ATM (double fundsOnSiteIn){
+        fundsOnSite =fundsOnSiteIn;
+    }
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance. If amount is negative, throws IllegalArgumentException
      */
@@ -10,7 +14,11 @@ public class ATM extends BankingTool{
             double balance = account.getBalance();
             if (amount <= balance){
                 balance -= amount;
-                account.setBalance(balance);
+                if(isAmountValid(balance))
+                    account.setBalance(balance);
+                else{
+                    throw new IllegalArgumentException("Balance error");
+                }
             }
             else if(amount > balance){
                 throw new InsufficientFundsException("Not enough money");
@@ -37,7 +45,7 @@ public class ATM extends BankingTool{
     public void transfer(BankAccount lender, BankAccount recipient, double amount) throws InsufficientFundsException{
         super.transfer(lender,recipient,amount);
     };
-    public boolean confirmUser(BankAccount account, String clientInfo){
+    public boolean confirmUser(BankAccount account, String clientUsername, String clientPassword){
         //Are we calling isEmailValid?
         //And comparing account email to client email?
         // If so, I'll include a client parameter
@@ -48,10 +56,7 @@ public class ATM extends BankingTool{
         return "";
     };
     public boolean isAmountValid(double amount){
-        //I'm calling isAmountValid with a default implementation in BankingTool 
-        //However, I have a setBalance function in BankAccount that should use it
-        //How do we want to use this method in our implementation?
-        //Should it just be a static account method or a static/nonstatic method in the abstract class?
+        
         return super.isAmountValid(amount);
     };
 

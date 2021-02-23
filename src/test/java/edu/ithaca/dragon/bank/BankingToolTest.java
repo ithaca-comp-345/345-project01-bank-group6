@@ -8,7 +8,7 @@ class BankingToolTest {
 
     @Test
     void withdrawTest() throws InsufficientFundsException{
-        ATM atm = new ATM();
+        ATM atm = new ATM(10000);
         BankAccount bankAccount = new BankAccount("a@b.com", 200);
         atm.withdraw(bankAccount, 100);
 

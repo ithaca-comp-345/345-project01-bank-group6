@@ -6,6 +6,8 @@ public class BankAccount {
 
     private String email;
 
+    //format for elements is a forward slash separated transaction
+    private String[] transactionHistory;
 
     protected double balance;
 
@@ -91,5 +93,9 @@ public class BankAccount {
             return false;
         }
         return true;
+    }
+
+    public String [] getTransactionHistory(){
+        return transactionHistory;
     }
 }

@@ -9,6 +9,9 @@ public class BankAccount {
 
     protected double balance;
 
+    protected boolean frozenStatus;
+
+
 
     /**
      * @throws IllegalArgumentException if email is invalid or if amount is invalid
@@ -28,6 +31,7 @@ public class BankAccount {
         else{
             throw new IllegalArgumentException("Starting Balance: " + startingBalance + " is invalid, cannot create account");
         }
+        frozenStatus= false;
     }
 
     public void setBalance(double amount){
@@ -91,5 +95,14 @@ public class BankAccount {
             return false;
         }
         return true;
+    }
+
+    public boolean getFrozenStatus(){
+        return frozenStatus;
+    }
+
+    public boolean setFrozenStatus(boolean status){
+        frozenStatus= status;
+        return frozenStatus;
     }
 }

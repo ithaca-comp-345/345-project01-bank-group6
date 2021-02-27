@@ -22,7 +22,7 @@ public class Admin {
         //suspicious.transactionHistory();
         //will use getTransaction History
         //will look at recent withdrawal
-        //return true if withdrawal is over 500
+        //return true if withdrawal or transfer is over 500
         return false;
     }
 

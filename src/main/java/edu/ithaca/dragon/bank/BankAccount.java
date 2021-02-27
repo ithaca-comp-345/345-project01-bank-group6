@@ -104,7 +104,7 @@ public class BankAccount {
         return true;
     }
 
-<<<<<<< HEAD
+
     public boolean getFrozenStatus(){
         return frozenStatus;
     }
@@ -113,11 +113,11 @@ public class BankAccount {
         frozenStatus= status;
         return frozenStatus;
     }
-=======
+
     public ArrayList<String> getTransactionHistory(){
         return transactionHistory;
     }
 
     public int getAccountID(){return accountID;}
->>>>>>> 4ddbb8bf15b0dfab6691e6d73621465b4e475f9c
+
 }

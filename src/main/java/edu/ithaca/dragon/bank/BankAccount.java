@@ -1,13 +1,14 @@
 package edu.ithaca.dragon.bank;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class BankAccount {
 
     private String email;
 
-    //format for elements is a forward slash separated transaction
-    private String[] transactionHistory;
+    //format for elements is a space separated transaction
+    private ArrayList<String> transactionHistory;
 
     protected double balance;
 
@@ -19,6 +20,7 @@ public class BankAccount {
         if (isEmailValid(email) /*&& isAmountValid(startingBalance*/){
             this.email = email;
             //this.balance = startingBalance;
+            this.transactionHistory=new ArrayList<String>();
         }
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
@@ -95,7 +97,7 @@ public class BankAccount {
         return true;
     }
 
-    public String [] getTransactionHistory(){
+    public ArrayList<String> getTransactionHistory(){
         return transactionHistory;
     }
 }

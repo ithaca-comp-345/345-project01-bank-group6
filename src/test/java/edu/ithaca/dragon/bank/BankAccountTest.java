@@ -128,17 +128,17 @@ class BankAccountTest {
         balances.add(checking1.getBalance());
         String [] types = new String[]{"deposit","withdraw","transfer","deposit","withdraw","transfer"};
         String [] amounts = new String[]{"100","50","50","2.50","1.25","1.25"};
-        String [] transactions = checking1.getTransactionHistory();
-        for (int i=0;i<transactions.length;i++){
-            assertEquals(types[i],transactions[i].split(" ")[0]);
+        ArrayList<String> transactions = checking1.getTransactionHistory();
+        for (int i=0;i<transactions.size();i++){
+            assertEquals(types[i],transactions.get(i).split(" ")[0]);
             if(types[i]=="transfer"){
-                assertEquals("checking2",transactions[i].split(" ")[1]);
-                assertEquals(amounts[i],transactions[i].split(" ")[2]);
+                assertEquals("checking2",transactions.get(i).split(" ")[1]);
+                assertEquals(amounts[i],transactions.get(i).split(" ")[2]);
             }
             else{
-                assertEquals(amounts[i],transactions[i].split(" ")[1]);
+                assertEquals(amounts[i],transactions.get(i).split(" ")[1]);
             }
-            assertEquals(balances.get(i),transactions[i].split(" ")[-1]);
+            assertEquals(balances.get(i),transactions.get(i).split(" ")[-1]);
         }
         try{
             atm.deposit(checking1,100.789);
@@ -158,16 +158,16 @@ class BankAccountTest {
         }
         catch(Exception e){}
         //invalid transactions aren't added to the history
-        String[] newTransactions = checking1.getTransactionHistory();
-        for(int i=0;i<transactions.length;i++){
-            assertEquals(transactions[i],newTransactions[i]);
+        ArrayList<String> newTransactions = checking1.getTransactionHistory();
+        for(int i=0;i<transactions.size();i++){
+            assertEquals(transactions.get(i),newTransactions.get(i));
         }
         //test for savings account and interest when implemented
         SavingsAccount savings = new SavingsAccount("a@b.com",500);
         savings.compoundInterest();
-        String[] transactionLog = savings.getTransactionHistory();
-        assertEquals("compounded interest",transactionLog[0].split(" ")[0]);
-        assertEquals(Double.toString(savings.getBalance()),transactionLog[0].split(" ")[1]);
+        ArrayList<String> transactionLog = savings.getTransactionHistory();
+        assertEquals("compounded interest",transactionLog.get(0).split(" ")[0]);
+        assertEquals(Double.toString(savings.getBalance()),transactionLog.get(0).split(" ")[1]);
     }
 
 }

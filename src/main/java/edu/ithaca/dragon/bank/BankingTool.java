@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.bank;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public abstract class BankingTool{
     public abstract void withdraw(BankAccount account, double amount) throws InsufficientFundsException;
@@ -22,7 +23,10 @@ public abstract class BankingTool{
     }
     public abstract boolean confirmUser(BankAccount account, String clientUsername, String password);
     public void displayTransactionHistory(BankAccount account){
-        System.out.println("");
+        ArrayList<String> transactions= account.getTransactionHistory();
+        for(int i=0;i<transactions.size();i++){
+            System.out.println(transactions.get(i));
+        }
     };
     public boolean isAmountValid(double amount){
         if(BigDecimal.valueOf(amount).scale() > 2){

@@ -84,9 +84,11 @@ class BankingToolTest {
 
 
     }
-
+    @Test
     void displayTransactionHistoryTest() throws Exception {
         ATM atm = new ATM(10000);
+        //not sure how to test
+        //does this need a test?
     }
 
 }

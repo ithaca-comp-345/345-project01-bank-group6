@@ -19,10 +19,25 @@ public class Admin {
     }
 
     public boolean requestSuspiciousAcctReport(BankAccount suspicious){
-        //suspicious.transactionHistory();
-        //will use getTransaction History
-        //will look at recent withdrawal
-        //return true if withdrawal or transfer is over 500
+        ArrayList<String> susActivity= suspicious.getTransactionHistory();
+        //String[] split;
+        for(int i=0; i<susActivity.size(); i++){
+        String[]split= susActivity.get(i).split(" ");   
+        if(split[0].equals("withdraw")){
+            double value= Double.parseDouble(split[1]);
+            if(value>=500){
+                System.out.println("Suspcious activity detected");
+                return true;
+            }
+        }
+        if(split[0].equals("transfer")){
+            double value= Double.parseDouble(split[2]);
+            if(value>=500){
+                System.out.println("Suspcious activity detected");
+                return true;
+            }
+        }
+        }
         return false;
     }
 

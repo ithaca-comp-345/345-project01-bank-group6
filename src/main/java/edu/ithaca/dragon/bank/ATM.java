@@ -9,13 +9,16 @@ public class ATM extends BankingTool{
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance. If amount is negative, throws IllegalArgumentException
      */
-    public void withdraw (BankAccount account, double amount) throws InsufficientFundsException{
+    public void withdraw (BankAccount account, double amount,boolean wasTransfer) throws InsufficientFundsException{
         if(isAmountValid(amount)){
             double balance = account.getBalance();
             if (amount <= balance){
                 balance -= amount;
-                if(isAmountValid(balance))
+                if(isAmountValid(balance)){
                     account.setBalance(balance);
+                    if(!wasTransfer)
+                        account.getTransactionHistory().add("withdraw "+Double.toString(amount)+" balance: "+Double.toString(account.getBalance()));
+                }
                 else{
                     throw new IllegalArgumentException("Balance error");
                 }
@@ -36,6 +39,7 @@ public class ATM extends BankingTool{
             double balance = account.getBalance();
             balance +=amount;
             account.setBalance(balance);
+            account.getTransactionHistory().add("deposit "+amount+" balance: "+Double.toString(account.getBalance()));
         }
         else{
             throw new IllegalArgumentException("Amount is invalid");

@@ -10,17 +10,20 @@ public class BankAccount {
     //format for elements is a space separated transaction
     private ArrayList<String> transactionHistory;
 
+    private int accountID;
+
     protected double balance;
 
 
     /**
      * @throws IllegalArgumentException if email is invalid or if amount is invalid
      */
-    public BankAccount(String email, double startingBalance){
+    public BankAccount(String email, double startingBalance, int acctID){
         if (isEmailValid(email) /*&& isAmountValid(startingBalance*/){
             this.email = email;
             //this.balance = startingBalance;
             this.transactionHistory=new ArrayList<String>();
+            this.accountID=acctID;
         }
         else {
             throw new IllegalArgumentException("Email address: " + email + " is invalid, cannot create account");
@@ -100,4 +103,6 @@ public class BankAccount {
     public ArrayList<String> getTransactionHistory(){
         return transactionHistory;
     }
+
+    public int getAccountID(){return accountID;}
 }

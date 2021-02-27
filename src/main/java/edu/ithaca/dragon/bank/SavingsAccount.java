@@ -6,8 +6,8 @@ public class SavingsAccount extends BankAccount{
     private double interestRate;
     private double interest;
 
-    public SavingsAccount(String email, double startingBalance){
-        super(email, startingBalance);
+    public SavingsAccount(String email, double startingBalance, int acctID){
+        super(email, startingBalance,acctID);
         dailyMaxWithdrawalLimit = 500;
         interestRate = 0.01;
     }
@@ -16,6 +16,7 @@ public class SavingsAccount extends BankAccount{
     public void compoundInterest(){
         interest=balance*interestRate;
         balance += interest;
+        super.getTransactionHistory().add("interest "+interest+" "+" balance: "+super.getBalance());
 
     }
     public double getInterest(){

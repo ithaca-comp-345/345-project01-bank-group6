@@ -51,10 +51,7 @@ public class ATM extends BankingTool{
         // If so, I'll include a client parameter
         return false;
     };
-    public String displayTransactionHistory(BankAccount account){
-        //Not sure how we want to format transaction history
-        return "";
-    };
+    
     public boolean isAmountValid(double amount){
         
         return super.isAmountValid(amount);

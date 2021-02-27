@@ -3,6 +3,7 @@ package edu.ithaca.dragon.bank;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 class BankingToolTest {
 
@@ -84,10 +85,8 @@ class BankingToolTest {
 
     }
 
-    void displayTransactionHistoryTest(){
+    void displayTransactionHistoryTest() throws Exception {
         ATM atm = new ATM(10000);
-        BankAccount checking1 = new CheckingAccount("a@b.com",500);
-        
     }
 
 }

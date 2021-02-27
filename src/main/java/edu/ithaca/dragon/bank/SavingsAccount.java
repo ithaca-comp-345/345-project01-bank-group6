@@ -6,10 +6,10 @@ public class SavingsAccount extends BankAccount{
     private double interestRate;
     private double interest;
 
-    public SavingsAccount(String email, double startingBalance, double dailyMaxWithdrawalLimitIn, double ir){
+    public SavingsAccount(String email, double startingBalance){
         super(email, startingBalance);
-        dailyMaxWithdrawalLimit = dailyMaxWithdrawalLimitIn;
-        interestRate = ir;
+        dailyMaxWithdrawalLimit = 500;
+        interestRate = 0.01;
     }
 
 

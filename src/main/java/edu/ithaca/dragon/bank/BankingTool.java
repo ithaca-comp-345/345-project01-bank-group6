@@ -21,7 +21,9 @@ public abstract class BankingTool{
 
     }
     public abstract boolean confirmUser(BankAccount account, String clientUsername, String password);
-    public abstract String displayTransactionHistory(BankAccount account);
+    public void displayTransactionHistory(BankAccount account){
+        System.out.println("");
+    };
     public boolean isAmountValid(double amount){
         if(BigDecimal.valueOf(amount).scale() > 2){
             return false;

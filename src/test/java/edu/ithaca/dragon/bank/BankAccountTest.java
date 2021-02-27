@@ -3,6 +3,7 @@ package edu.ithaca.dragon.bank;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.ArrayList;
 
 class BankAccountTest {
 
@@ -96,15 +97,77 @@ class BankAccountTest {
     void compoundInterestTest(){
 
 
-        SavingsAccount sa = new SavingsAccount("a@b.com", 200, 500, 0.05);
+        SavingsAccount sa = new SavingsAccount("a@b.com", 200);
         sa.compoundInterest();
         assertEquals(210, sa.getBalance());
-        SavingsAccount sa2 = new SavingsAccount("a@b.com", 0, 500, 0.05);
+        SavingsAccount sa2 = new SavingsAccount("a@b.com", 0);
         sa2.compoundInterest();
         assertEquals(0, sa2.getBalance());
-        SavingsAccount sa3 = new SavingsAccount("a@b.com", 200, 500, 1);
+        SavingsAccount sa3 = new SavingsAccount("a@b.com", 200);
         sa3.compoundInterest();
         assertEquals(400, sa3.getBalance());
+    }
+    @Test
+    void getTransactionHistoryTest() throws InsufficientFundsException{
+        ATM atm = new ATM(10000);
+        BankAccount checking1 = new CheckingAccount("a@b.com",500);
+        BankAccount checking2 = new CheckingAccount("a@bc.com",500);
+        ArrayList<Double> balances=new ArrayList<>();
+        //valid transactions
+        atm.deposit(checking1,100);
+        balances.add(checking1.getBalance());
+        atm.withdraw(checking1,50);
+        balances.add(checking1.getBalance());
+        atm.transfer(checking1,checking2,50);
+        balances.add(checking1.getBalance());
+        atm.deposit(checking1,2.50);
+        balances.add(checking1.getBalance());
+        atm.withdraw(checking1,1.25);
+        balances.add(checking1.getBalance());
+        atm.transfer(checking1,checking2,1.25);
+        balances.add(checking1.getBalance());
+        String [] types = new String[]{"deposit","withdraw","transfer","deposit","withdraw","transfer"};
+        String [] amounts = new String[]{"100","50","50","2.50","1.25","1.25"};
+        String [] transactions = checking1.getTransactionHistory();
+        for (int i=0;i<transactions.length;i++){
+            assertEquals(types[i],transactions[i].split(" ")[0]);
+            if(types[i]=="transfer"){
+                assertEquals("checking2",transactions[i].split(" ")[1]);
+                assertEquals(amounts[i],transactions[i].split(" ")[2]);
+            }
+            else{
+                assertEquals(amounts[i],transactions[i].split(" ")[1]);
+            }
+            assertEquals(balances.get(i),transactions[i].split(" ")[-1]);
+        }
+        try{
+            atm.deposit(checking1,100.789);
+            atm.deposit(checking1,-100.789);
+            atm.deposit(checking1,-100);
+            atm.withdraw(checking1,800.789);
+            atm.withdraw(checking1,800);
+            atm.withdraw(checking1,100.789);
+            atm.withdraw(checking1,-100.789);
+            atm.withdraw(checking1,-100);
+            atm.transfer(checking1,checking2,800.789);
+            atm.transfer(checking1,checking2,800);
+            atm.transfer(checking1,checking2,100.789);
+            atm.transfer(checking1,checking2,-100.789);
+            atm.transfer(checking1,checking2,-100);
+
+        }
+        catch(Exception e){}
+        //invalid transactions aren't added to the history
+        String[] newTransactions = checking1.getTransactionHistory();
+        for(int i=0;i<transactions.length;i++){
+            assertEquals(transactions[i],newTransactions[i]);
+        }
+        //test for savings account and interest when implemented
+        SavingsAccount savings = new SavingsAccount("a@b.com",500);
+        savings.compoundInterest();
+        String[] transactionLog = savings.getTransactionHistory();
+        assertEquals("compounded interest",transactionLog[0].split(" ")[0]);
+        assertEquals(Double.toString(savings.getBalance()),transactionLog[0].split(" ")[1]);
     }
 
 }

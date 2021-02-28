@@ -9,7 +9,7 @@ class BankingToolTest {
 
     @Test
     void withdrawTest() throws InsufficientFundsException{
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         BankAccount bankAccount = new BankAccount("a@b.com", 200,123);
         atm.withdraw(bankAccount, 100,false);
 
@@ -48,7 +48,7 @@ class BankingToolTest {
 
     @Test
     void depositTest(){
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         BankAccount bankAccount= new BankAccount("a@b.com", 200,12345);
         atm.deposit(bankAccount,100);
         assertEquals(bankAccount.getBalance(), 300);
@@ -66,7 +66,7 @@ class BankingToolTest {
 
     @Test
     void transferTest() throws InsufficientFundsException {
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         BankAccount bankAccount1= new BankAccount("a@b.com", 200,12345);
         BankAccount bankAccount2= new BankAccount("b@c.com", 200,123456);
         atm.transfer(bankAccount1, bankAccount2,100);
@@ -86,7 +86,7 @@ class BankingToolTest {
     }
     @Test
     void displayTransactionHistoryTest() throws Exception {
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         //not sure how to test
         //does this need a test?
     }

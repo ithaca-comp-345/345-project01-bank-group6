@@ -75,6 +75,34 @@ public class AdminTest {
     }
 
     @Test
+    void susReportV2Test() throws InsufficientFundsException {
+        ATM atm = new ATM(10000);
+        BankAccount bankAccount1= new BankAccount("a@b.com", 200, 45678);
+        BankAccount bankAccount2= new BankAccount("a@b.com", 800, 56789);
+        BankAccount bankAccount3= new CheckingAccount("a@b.com", 600, 67890);
+        ArrayList<BankAccount> bankAccounts= new ArrayList<BankAccount>();
+        bankAccounts.add(bankAccount1);
+        bankAccounts.add(bankAccount2);
+        bankAccounts.add(bankAccount3);
+        Admin admin1= new Admin(bankAccounts);
+        atm.deposit(bankAccount1, 1000);
+        atm.withdraw(bankAccount1, 100, false);
+        atm.transfer(bankAccount1, bankAccount2, 50.00);
+        atm.withdraw(bankAccount1, 550.00, false);
+        atm.transfer(bankAccount2, bankAccount1, 678);
+        assertTrue(admin1.requestSuspiciousAcctReport(bankAccount1));
+        assertTrue(admin1.requestSuspiciousAcctReport(bankAccount2));
+        atm.withdraw(bankAccount3, 465.75, false);
+        atm.transfer(bankAccount3, bankAccount1, 50);
+        atm.deposit(bankAccount3, 100);
+        atm.withdraw(bankAccount3, 100, false);
+        assertFalse(admin1.requestSuspiciousAcctReport(bankAccount3));
+        ArrayList<BankAccount> badAccounts= admin1.susReportV2(bankAccounts);
+        assertEquals(badAccounts.get(0), bankAccount1);
+        assertEquals(badAccounts.get(1), bankAccount2);
+    }
+
+    @Test
     void totalMoneyTest(){
         BankAccount bankAccount1= new BankAccount("a@b.com", 200, 12345);
         BankAccount bankAccount2= new BankAccount("a@b.com", 300, 12345);

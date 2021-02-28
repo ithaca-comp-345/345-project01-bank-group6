@@ -41,6 +41,16 @@ public class Admin {
         return false;
     }
 
+    public ArrayList<BankAccount> susReportV2( ArrayList<BankAccount> accounts){
+        ArrayList<BankAccount> susActivity= new ArrayList<BankAccount>();
+        for(int i=0; i<accounts.size(); i++){
+            if(requestSuspiciousAcctReport(accounts.get(i))){
+                susActivity.add(accounts.get(i));
+            }
+        }
+        return susActivity;
+    }
+
     public static void freezeAccount(BankAccount toFreeze){
         if(toFreeze.getFrozenStatus()== true){
             throw new IllegalArgumentException("Bank account is already frozen");

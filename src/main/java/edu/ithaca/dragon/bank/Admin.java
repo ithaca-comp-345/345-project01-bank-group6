@@ -18,9 +18,9 @@ public class Admin {
         return totalSum;
     }
 
+    //Checks if individual account has suspicious activity, returns true or false
     public boolean requestSuspiciousAcctReport(BankAccount suspicious){
         ArrayList<String> susActivity= suspicious.getTransactionHistory();
-        //String[] split;
         for(int i=0; i<susActivity.size(); i++){
         String[]split= susActivity.get(i).split(" ");   
         if(split[0].equals("withdraw")){
@@ -41,6 +41,7 @@ public class Admin {
         return false;
     }
 
+    //Returns a list of accounts with suspicious activity
     public ArrayList<BankAccount> susReportV2( ArrayList<BankAccount> accounts){
         ArrayList<BankAccount> susActivity= new ArrayList<BankAccount>();
         for(int i=0; i<accounts.size(); i++){

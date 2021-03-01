@@ -8,7 +8,7 @@ class TellerTest{
 
     @Test
     void createAccountTest(){
-
+            Client c = new Client();
     }
 
     @Test

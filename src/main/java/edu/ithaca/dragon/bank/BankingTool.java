@@ -8,6 +8,7 @@ public abstract class BankingTool{
      * @post reduces the balance by amount if amount is non-negative and smaller than balance. If amount is negative, throws IllegalArgumentException
      */
     public void withdraw (BankAccount account, double amount,boolean wasTransfer) throws InsufficientFundsException{
+       if(account.getFrozenStatus()== false){ 
         if(isAmountValid(amount)){
             double balance = account.getBalance();
             if (amount <= balance){
@@ -25,14 +26,20 @@ public abstract class BankingTool{
                 throw new InsufficientFundsException("Not enough money");
             }
         }
+    
         else{
             throw new IllegalArgumentException("Amount is invalid");
         }
+       }
+       else{
+           throw new IllegalArgumentException("This account is frozen");
+       }
     }
     /**
      * @post If amount is valid, adds the amount to the current balance of the bank account. 
      */
     public void deposit(BankAccount account, double amount){
+      if(account.getFrozenStatus()== false){
         if(isAmountValid(amount)){
             double balance = account.getBalance();
             balance +=amount;
@@ -42,14 +49,19 @@ public abstract class BankingTool{
         else{
             throw new IllegalArgumentException("Amount is invalid");
         }
-
     }
+    else{
+        throw new IllegalArgumentException("This account is frozen");
+    }
+    }
+    
     /**
       * @throws InsufficientFundsException
       * @post If amount is valid, withdraws amount from one bank account and deposits
       *       it in another
       */
     public void transfer(BankAccount lender, BankAccount recipient, double amount) throws InsufficientFundsException {
+        if(lender.getFrozenStatus()== false && recipient.getFrozenStatus()== false){
         if(isAmountValid(amount)){
             withdraw(lender,amount,true);
             lender.getTransactionHistory().add("transfer "+Integer.toString(recipient.getAccountID())+" "+Double.toString(amount)+" balance: "+Double.toString(lender.getBalance()));
@@ -60,7 +72,10 @@ public abstract class BankingTool{
         else{
             throw new IllegalArgumentException("Amount is invalid");
         }
-
+    }
+        else{
+            throw new IllegalArgumentException("One of these accounts is frozen");
+        }
     }
     public abstract boolean confirmUser(BankAccount account, String clientUsername, String password);
     public void displayTransactionHistory(BankAccount account){

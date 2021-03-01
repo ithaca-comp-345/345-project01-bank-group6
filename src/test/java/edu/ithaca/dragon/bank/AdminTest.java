@@ -51,7 +51,7 @@ public class AdminTest {
 
     @Test
     void requestSuspiciousAcctReportTest() throws InsufficientFundsException {
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         BankAccount bankAccount1= new BankAccount("a@b.com", 200, 45678);
         BankAccount bankAccount2= new BankAccount("a@b.com", 800, 56789);
         BankAccount bankAccount3= new CheckingAccount("a@b.com", 600, 67890);
@@ -76,7 +76,7 @@ public class AdminTest {
 
     @Test
     void susReportV2Test() throws InsufficientFundsException {
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         BankAccount bankAccount1= new BankAccount("a@b.com", 200, 45678);
         BankAccount bankAccount2= new BankAccount("a@b.com", 800, 56789);
         BankAccount bankAccount3= new CheckingAccount("a@b.com", 600, 67890);

@@ -42,7 +42,9 @@ class BankingToolTest {
         //equivalence case- the amount to withdraw is negative. Should throw exception
         assertThrows(IllegalArgumentException.class, () -> atm.withdraw(bankAccount3,-10,false));
         assertThrows(IllegalArgumentException.class, ()-> atm.withdraw(bankAccount3,500.009,false));
-
+        BankAccount bankAccount4= new BankAccount("a@b.com", 500, 12345);
+        bankAccount4.setFrozenStatus(true);
+        assertThrows(IllegalArgumentException.class, () -> atm.withdraw(bankAccount4, 50, false));
 
     }
 
@@ -60,6 +62,9 @@ class BankingToolTest {
         assertThrows(IllegalArgumentException.class, ()-> atm.deposit(bankAccount,100.001));
         atm.deposit(bankAccount,0.99);
         assertEquals(bankAccount.getBalance(), 401.00);
+        BankAccount bankAccount4= new BankAccount("a@b.com", 500, 12345);
+        bankAccount4.setFrozenStatus(true);
+        assertThrows(IllegalArgumentException.class, () -> atm.deposit(bankAccount4, 50));
 
     }
 
@@ -81,6 +86,10 @@ class BankingToolTest {
         assertEquals(bankAccount1.getBalance(), 200.15);
         assertEquals(bankAccount2.getBalance(), 199.85);
         assertThrows(IllegalArgumentException.class, ()-> atm.transfer(bankAccount1, bankAccount2,0.001));
+
+        BankAccount bankAccount4= new BankAccount("a@b.com", 500, 12345);
+        bankAccount4.setFrozenStatus(true);
+        assertThrows(IllegalArgumentException.class, () -> atm.transfer(bankAccount4, bankAccount1, 50));
 
 
     }

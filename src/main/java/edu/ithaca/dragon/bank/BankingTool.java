@@ -4,8 +4,46 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public abstract class BankingTool{
-    public abstract void withdraw(BankAccount account, double amount, boolean wasTransfer) throws InsufficientFundsException;
-    public abstract void deposit(BankAccount account, double amount);
+    /**
+     * @post reduces the balance by amount if amount is non-negative and smaller than balance. If amount is negative, throws IllegalArgumentException
+     */
+    public void withdraw (BankAccount account, double amount,boolean wasTransfer) throws InsufficientFundsException{
+        if(isAmountValid(amount)){
+            double balance = account.getBalance();
+            if (amount <= balance){
+                balance -= amount;
+                if(isAmountValid(balance)){
+                    account.setBalance(balance);
+                    if(!wasTransfer)
+                        account.getTransactionHistory().add("withdraw "+Double.toString(amount)+" balance: "+Double.toString(account.getBalance()));
+                }
+                else{
+                    throw new IllegalArgumentException("Balance error");
+                }
+            }
+            else if(amount > balance){
+                throw new InsufficientFundsException("Not enough money");
+            }
+        }
+        else{
+            throw new IllegalArgumentException("Amount is invalid");
+        }
+    }
+    /**
+     * @post If amount is valid, adds the amount to the current balance of the bank account. 
+     */
+    public void deposit(BankAccount account, double amount){
+        if(isAmountValid(amount)){
+            double balance = account.getBalance();
+            balance +=amount;
+            account.setBalance(balance);
+            account.getTransactionHistory().add("deposit "+amount+" balance: "+Double.toString(account.getBalance()));
+        }
+        else{
+            throw new IllegalArgumentException("Amount is invalid");
+        }
+
+    }
     /**
       * @throws InsufficientFundsException
       * @post If amount is valid, withdraws amount from one bank account and deposits

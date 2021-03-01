@@ -109,7 +109,7 @@ class BankAccountTest {
     }
     @Test
     void getTransactionHistoryTest() throws InsufficientFundsException{
-        ATM atm = new ATM(10000);
+        ATM atm = new ATM();
         BankAccount checking1 = new CheckingAccount("a@b.com",500,12345);
         BankAccount checking2 = new CheckingAccount("a@bc.com",500,12345);
         ArrayList<Double> balances=new ArrayList<>();

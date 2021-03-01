@@ -23,5 +23,9 @@ public class ATM extends BankingTool{
         return super.isAmountValid(amount);
     };
 
+    public void checkBalance(BankAccount account){
+        super.checkBalance(account);
+    }
+
 
 }

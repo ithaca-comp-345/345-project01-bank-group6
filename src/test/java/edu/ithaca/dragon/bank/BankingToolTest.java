@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BankingToolTest {
 
     @Test
-    void withdrawTest() throws InsufficientFundsException{
+    void withdrawTest() throws InsufficientFundsException, IllegalArgumentException{
         for(int i=0;i<2;i++){
             BankingTool bt;
             if(i==1)
@@ -80,7 +80,7 @@ class BankingToolTest {
 
 
     @Test
-    void transferTest() throws InsufficientFundsException {
+    void transferTest() throws InsufficientFundsException, IllegalArgumentException {
         for(int i=0;i<2;i++){
             BankingTool bt;
             if(i==0)
@@ -109,7 +109,7 @@ class BankingToolTest {
 
     }
     @Test
-    void displayTransactionHistoryTest() throws InsufficientFundsException {
+    void displayTransactionHistoryTest() throws InsufficientFundsException, IllegalArgumentException {
         //not sure how to test
         //does this need a test?
         for(int i=0;i<2;i++){

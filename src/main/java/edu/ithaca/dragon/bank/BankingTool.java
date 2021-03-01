@@ -7,52 +7,51 @@ public abstract class BankingTool{
     /**
      * @post reduces the balance by amount if amount is non-negative and smaller than balance. If amount is negative, throws IllegalArgumentException
      */
-    public void withdraw (BankAccount account, double amount,boolean wasTransfer) throws InsufficientFundsException{
-       if(account.getFrozenStatus()== false){ 
-        if(isAmountValid(amount)){
-            double balance = account.getBalance();
-            if (amount <= balance){
-                balance -= amount;
-                if(isAmountValid(balance)){
-                    account.setBalance(balance);
-                    if(!wasTransfer)
-                        account.getTransactionHistory().add("withdraw "+Double.toString(amount)+" balance: "+Double.toString(account.getBalance()));
+    public void withdraw (BankAccount account, double amount,boolean wasTransfer) throws InsufficientFundsException, IllegalArgumentException{
+        if(account.getFrozenStatus()== false){ 
+            if(isAmountValid(amount)){
+                double balance = account.getBalance();
+                if (amount <= balance){
+                    balance -= amount;
+                    if(isAmountValid(balance)){
+                        account.setBalance(balance);
+                        if(!wasTransfer)
+                            account.getTransactionHistory().add("withdraw "+Double.toString(amount)+" balance: "+Double.toString(account.getBalance()));
+                    }
+                    else{
+                        throw new IllegalArgumentException("Balance error");
+                    }
                 }
-                else{
-                    throw new IllegalArgumentException("Balance error");
+                else if(amount > balance){
+                    throw new InsufficientFundsException("Not enough money");
                 }
             }
-            else if(amount > balance){
-                throw new InsufficientFundsException("Not enough money");
+            else{
+                throw new IllegalArgumentException("Amount is invalid");
             }
         }
-    
         else{
-            throw new IllegalArgumentException("Amount is invalid");
+            throw new IllegalArgumentException("This account is frozen");
         }
-       }
-       else{
-           throw new IllegalArgumentException("This account is frozen");
-       }
     }
     /**
      * @post If amount is valid, adds the amount to the current balance of the bank account. 
      */
     public void deposit(BankAccount account, double amount){
-      if(account.getFrozenStatus()== false){
-        if(isAmountValid(amount)){
-            double balance = account.getBalance();
-            balance +=amount;
-            account.setBalance(balance);
-            account.getTransactionHistory().add("deposit "+amount+" balance: "+Double.toString(account.getBalance()));
+        if(account.getFrozenStatus()== false){
+            if(isAmountValid(amount)){
+                double balance = account.getBalance();
+                balance +=amount;
+                account.setBalance(balance);
+                account.getTransactionHistory().add("deposit "+amount+" balance: "+Double.toString(account.getBalance()));
+            }
+            else{
+                throw new IllegalArgumentException("Amount is invalid");
+            }
         }
         else{
-            throw new IllegalArgumentException("Amount is invalid");
+            throw new IllegalArgumentException("This account is frozen");
         }
-    }
-    else{
-        throw new IllegalArgumentException("This account is frozen");
-    }
     }
     
     /**
@@ -60,19 +59,19 @@ public abstract class BankingTool{
       * @post If amount is valid, withdraws amount from one bank account and deposits
       *       it in another
       */
-    public void transfer(BankAccount lender, BankAccount recipient, double amount) throws InsufficientFundsException {
+    public void transfer(BankAccount lender, BankAccount recipient, double amount) throws InsufficientFundsException, IllegalArgumentException {
         if(lender.getFrozenStatus()== false && recipient.getFrozenStatus()== false){
-        if(isAmountValid(amount)){
-            withdraw(lender,amount,true);
-            lender.getTransactionHistory().add("transfer "+Integer.toString(recipient.getAccountID())+" "+Double.toString(amount)+" balance: "+Double.toString(lender.getBalance()));
-            deposit(recipient,amount);
-            //potentially might want to change
-            recipient.getTransactionHistory().add("deposit "+Double.toString(amount)+" balance: "+Double.toString(recipient.getBalance()));
+            if(isAmountValid(amount)){
+                withdraw(lender,amount,true);
+                lender.getTransactionHistory().add("transfer "+Integer.toString(recipient.getAccountID())+" "+Double.toString(amount)+" balance: "+Double.toString(lender.getBalance()));
+                deposit(recipient,amount);
+                //potentially might want to change
+                recipient.getTransactionHistory().add("deposit "+Double.toString(amount)+" balance: "+Double.toString(recipient.getBalance()));
+            }
+            else{
+                throw new IllegalArgumentException("Amount is invalid");
+            }
         }
-        else{
-            throw new IllegalArgumentException("Amount is invalid");
-        }
-    }
         else{
             throw new IllegalArgumentException("One of these accounts is frozen");
         }

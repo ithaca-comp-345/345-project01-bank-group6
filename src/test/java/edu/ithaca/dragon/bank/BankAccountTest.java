@@ -109,7 +109,7 @@ class BankAccountTest {
         assertEquals(200, sa3.getBalance());
     }
     @Test
-    void getTransactionHistoryTest() throws InsufficientFundsException{
+    void getTransactionHistoryTest() throws InsufficientFundsException, IllegalArgumentException{
         ATM atm = new ATM();
         BankAccount checking1 = new CheckingAccount("a@b.com",500,12345);
         BankAccount checking2 = new CheckingAccount("a@bc.com",500,12345);

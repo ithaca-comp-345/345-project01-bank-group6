@@ -5,9 +5,10 @@ import java.util.List;
 
 public class Admin {
     List<BankAccount> allAccounts= new ArrayList<BankAccount>(); 
+    Bank myBank;
     
-    public Admin(ArrayList<BankAccount> allAccounts){
-        this.allAccounts= allAccounts;
+    public Admin(){
+        //allAccounts= myBank.getAccounts();;
     }
 
     public double totalMoney(){

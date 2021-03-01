@@ -119,6 +119,13 @@ class BankingToolTest {
         
         SavingsAccount savings = new SavingsAccount("a@b.com",500,12345);
         savings.compoundInterest();
+
+        BankAccount checking3 = new CheckingAccount("ab@c.net",600,54321);
+
+        atm.displayTransactionHistory(checking1);
+        atm.displayTransactionHistory(checking2);
+        atm.displayTransactionHistory(checking3);
+        atm.displayTransactionHistory(savings);
     }
 
 }

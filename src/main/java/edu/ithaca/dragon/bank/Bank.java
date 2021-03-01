@@ -1,6 +1,7 @@
 package edu.ithaca.dragon.bank;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class Bank {
     List<Client> clientList;
     List<Admin> adminList;
     List<BankAccount> accountList;
+    HashSet<Integer>accountIDs;
 
     public Bank(){}
 

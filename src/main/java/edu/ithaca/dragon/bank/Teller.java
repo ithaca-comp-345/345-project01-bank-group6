@@ -10,12 +10,7 @@ public class Teller extends BankingTool{
     public void transfer(BankAccount lender, BankAccount recipient, double amount) throws InsufficientFundsException{
         super.transfer(lender,recipient,amount);
     }
-    public boolean confirmUser(BankAccount account, String clientUsername, String clientPassword){
-        //Are we calling isEmailValid?
-        //And comparing account email to client email?
-        // If so, I'll include a client parameter
-        return false;
-    }
+    
     
     public boolean isAmountValid(double amount){
         
@@ -26,12 +21,20 @@ public class Teller extends BankingTool{
         super.checkBalance(account);
     }
 
-    public void createAccount(){
-
+    public void createSavingsAccount(Client c, SavingsAccount sa){
+        c.addSavingsAccount(sa);
     }
 
-    public void closeAccount(Client c, String which){
-        
+    public void createCheckingAccount(Client c, CheckingAccount ca){
+        c.addCheckingAccount(ca);
+    }
+
+    public SavingsAccount closeSavingsAccount(Client c, int i){
+        return c.removeSavingsAt(i);
+    }
+
+    public CheckingAccount closeCheckingAccount(Client c, int i){
+        return c.removeCheckingAt(i);
     }
     
 }

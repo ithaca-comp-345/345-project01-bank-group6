@@ -77,7 +77,12 @@ public abstract class BankingTool{
             throw new IllegalArgumentException("One of these accounts is frozen");
         }
     }
-    public abstract boolean confirmUser(BankAccount account, String clientUsername, String password);
+    public boolean confirmUser(Client c, String clientUsername, String clientPassword){
+        if(c.confirmUser(clientUsername, clientPassword)){
+            return true;
+        }
+        else return false;
+    };
     public void displayTransactionHistory(BankAccount account){
         ArrayList<String> transactions= account.getTransactionHistory();
         if(transactions.size()==0){

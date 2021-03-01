@@ -12,7 +12,7 @@ public class Client{
     public Client(String username, String password, String email){
         if(BankAccount.isEmailValid(email)){
             if(isPasswordValid(password)){
-                if(username.length()<7){
+                if(username.length()>7){
                     this.sAccounts=new ArrayList<SavingsAccount>();
                     this.cAccounts=new ArrayList<CheckingAccount>();
                     this.username = username;
@@ -115,7 +115,15 @@ public class Client{
         return sAccounts.get(i);
     }
 
-    public CheckingAccount gCheckingAccountAt(int i){
+    public CheckingAccount getCheckingAccountAt(int i){
         return cAccounts.get(i);
+    }
+
+    public SavingsAccount removeSavingsAt(int i){
+        return sAccounts.remove(i);
+    }
+
+    public CheckingAccount removeCheckingAt(int i){
+        return cAccounts.remove(i);
     }
 }

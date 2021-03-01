@@ -24,9 +24,9 @@ class ClientTest{
 
     @Test
     void confirmUserTest(){
-        Client c = new Client("happy", "Gilmore12!", "charles@ithaca.edu");
-        assertFalse(c.confirmUser("happy", "Partyguy123!"));
-        assertTrue(c.confirmUser("happy", "Gilmore12!"));
+        Client c = new Client("happyness", "Gilmore12!", "charles@ithaca.edu");
+        assertFalse(c.confirmUser("happyness", "Partyguy123!"));
+        assertTrue(c.confirmUser("happyness", "Gilmore12!"));
     }
 
 }

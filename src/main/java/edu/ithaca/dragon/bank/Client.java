@@ -1,3 +1,5 @@
+package edu.ithaca.dragon.bank;
+
 import java.util.ArrayList;
 
 public class Client{
@@ -10,11 +12,17 @@ public class Client{
     public Client(String username, String password, String email){
         if(BankAccount.isEmailValid(email)){
             if(isPasswordValid(password)){
-                this.sAccounts=new ArrayList<SavingsAccount>();
-                this.cAccounts=new ArrayList<CheckingAccount>();
+                if(username.length()<7){
+                    this.sAccounts=new ArrayList<SavingsAccount>();
+                    this.cAccounts=new ArrayList<CheckingAccount>();
+                    this.username = username;
+                    this.password = password;
+                    this.email = email;
+                }
+                else throw new IllegalArgumentException("Username too short.");
             }
             else {
-                throw new IllegalArgumentException("Password is invalid, must contain one capital, lowercase, number and special character while being longer than 7 characters and shorter than 32.")
+                throw new IllegalArgumentException("Password is invalid, must contain one capital, lowercase, number and special character while being longer than 7 characters and shorter than 32.");
             }
         }
         else {
@@ -22,34 +30,57 @@ public class Client{
         }
     }
 
-    public void addSavingsAccount(){
-
+    public void addSavingsAccount(SavingsAccount sa){
+        sAccounts.add(sa);
     }
 
-    public void addCheckingAccount(){
+    public void addCheckingAccount(CheckingAccount ca){
+        cAccounts.add(ca);
+    }
 
+    public boolean confirmUser(String u, String p){
+        if(u == username && p == password){
+            return true;
+        }
+        else return false;
     }
 
     public static boolean isPasswordValid(String password){
         if(password.length()<7 || password.length()>32){
             return false;
         }
+
         boolean hasUpper = false;
+        boolean hasLower = false;
+        boolean hasNumber = false;
         for(int i=0; i<password.length();i++){
             if(Character.isUpperCase(password.charAt(i))){
                 hasUpper=true;
-                break;
+            }
+            if(Character.isLowerCase(password.charAt(i))){
+                hasLower = true;
+            }
+            if(Character.isDigit(password.charAt(i))){
+                hasNumber = true;
             }
 
         }
-        if(!hasUpper){
+        if(!hasUpper || !hasLower || !hasNumber){
             return false;
         }
-        boolean hasUnique = false;
-        
-        for(int i=0; i<password.length();i++){
 
+
+        char[] uniqueChar = {'!','?','@','#','%'};
+        int count = 0;
+        for(int i=0; i<uniqueChar.length;i++){
+            char u = uniqueChar[i];
+            count += password.chars().filter(ch -> ch == u).count();
         }
+        if (count==0){
+            return false;
+        }
+
+        else return true;
     }
 
     public void setEmail(String email) {
@@ -68,14 +99,6 @@ public class Client{
         this.username = username;
     }
 
-    public BankAccount getChecking(){
-        return Checking;
-    }
-
-    public BankAccount getSavings(){
-        return Savings;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -86,5 +109,13 @@ public class Client{
 
     public String getUsername() {
         return username;
+    }
+
+    public SavingsAccount getSavingsAccountAt(int i){
+        return sAccounts.get(i);
+    }
+
+    public CheckingAccount gCheckingAccountAt(int i){
+        return cAccounts.get(i);
     }
 }

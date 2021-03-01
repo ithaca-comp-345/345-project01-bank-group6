@@ -19,11 +19,14 @@ class ClientTest{
             assertTrue(Client.isPasswordValid("cLient1!"));
             assertFalse(Client.isPasswordValid("Client1"));
             assertFalse(Client.isPasswordValid("CLIENT1!"));
+            assertFalse(Client.isPasswordValid("ClientClientClientClientClientClientClientClientClientClient12345!!"));
     }
 
     @Test
     void confirmUserTest(){
-        Client c1 = Client()
+        Client c = new Client("happy", "Gilmore12!", "charles@ithaca.edu");
+        assertFalse(c.confirmUser("happy", "Partyguy123!"));
+        assertTrue(c.confirmUser("happy", "Gilmore12!"));
     }
 
 }

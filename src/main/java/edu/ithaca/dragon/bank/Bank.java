@@ -44,7 +44,7 @@ public class Bank {
         System.out.println("Welcome to the bank! Create your new user account now.");
         System.out.println("Enter your username: ");
         String myUsername= scan.nextLine();
-        System.out.println("Enter your password: ");
+        System.out.println("Enter your password. It must contain one capital, lowercase, number and special character while being longer than 7 characters and shorter than 32: ");
         String myPassword= scan.nextLine();
         System.out.println("Enter your email address: ");
         String myEmail= scan.nextLine();

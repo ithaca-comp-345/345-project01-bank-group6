@@ -1,3 +1,4 @@
+package edu.ithaca.dragon.bank;
 public class Client{
     private BankAccount Checking;
     private BankAccount Savings;

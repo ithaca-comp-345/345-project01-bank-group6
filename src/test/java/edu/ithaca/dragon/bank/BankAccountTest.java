@@ -99,13 +99,14 @@ class BankAccountTest {
 
         SavingsAccount sa = new SavingsAccount("a@b.com", 200,12345);
         sa.compoundInterest();
-        assertEquals(210, sa.getBalance());
+        assertEquals(202, sa.getBalance());
         SavingsAccount sa2 = new SavingsAccount("a@b.com", 0,12345);
         sa2.compoundInterest();
         assertEquals(0, sa2.getBalance());
         SavingsAccount sa3 = new SavingsAccount("a@b.com", 200,12345);
+        sa3.setFrozenStatus(true);
         sa3.compoundInterest();
-        assertEquals(400, sa3.getBalance());
+        assertEquals(200, sa3.getBalance());
     }
     @Test
     void getTransactionHistoryTest() throws InsufficientFundsException{

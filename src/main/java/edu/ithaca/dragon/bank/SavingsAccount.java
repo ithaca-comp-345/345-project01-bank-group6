@@ -14,9 +14,11 @@ public class SavingsAccount extends BankAccount{
 
 
     public void compoundInterest(){
-        interest=balance*interestRate;
-        balance += interest;
-        super.getTransactionHistory().add("interest "+interest+" "+" balance: "+super.getBalance());
+        if(!frozenStatus){
+            interest=balance*interestRate;
+            balance += interest;
+            super.getTransactionHistory().add("interest "+interest+" "+" balance: "+super.getBalance());
+        }
 
     }
     public double getInterest(){

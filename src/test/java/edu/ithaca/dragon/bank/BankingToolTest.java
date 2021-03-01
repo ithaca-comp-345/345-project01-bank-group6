@@ -94,10 +94,47 @@ class BankingToolTest {
 
     }
     @Test
-    void displayTransactionHistoryTest() throws Exception {
+    void displayTransactionHistoryTest() throws InsufficientFundsException {
         ATM atm = new ATM();
         //not sure how to test
         //does this need a test?
+        BankAccount checking1 = new CheckingAccount("a@b.com",500,12345);
+        BankAccount checking2 = new CheckingAccount("a@bc.com",500,12345);
+        //valid transactions
+        atm.deposit(checking1,100);
+        atm.withdraw(checking1,50,false);
+        atm.transfer(checking1,checking2,50);
+        atm.deposit(checking1,2.50);
+        atm.withdraw(checking1,1.25,false);
+        atm.transfer(checking1,checking2,1.25);
+
+        try{
+            atm.deposit(checking1,100.789);
+            atm.deposit(checking1,-100.789);
+            atm.deposit(checking1,-100);
+            atm.withdraw(checking1,800.789,false);
+            atm.withdraw(checking1,800,false);
+            atm.withdraw(checking1,100.789,false);
+            atm.withdraw(checking1,-100.789,false);
+            atm.withdraw(checking1,-100,false);
+            atm.transfer(checking1,checking2,800.789);
+            atm.transfer(checking1,checking2,800);
+            atm.transfer(checking1,checking2,100.789);
+            atm.transfer(checking1,checking2,-100.789);
+            atm.transfer(checking1,checking2,-100);
+
+        }
+        catch(Exception e){}
+        
+        SavingsAccount savings = new SavingsAccount("a@b.com",500,12345);
+        savings.compoundInterest();
+
+        BankAccount checking3 = new CheckingAccount("ab@c.net",600,54321);
+
+        atm.displayTransactionHistory(checking1);
+        atm.displayTransactionHistory(checking2);
+        atm.displayTransactionHistory(checking3);
+        atm.displayTransactionHistory(savings);
     }
 
 }

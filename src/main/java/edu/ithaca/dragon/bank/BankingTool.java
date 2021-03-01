@@ -97,6 +97,10 @@ public abstract class BankingTool{
             return false;
         }
         return true;
-    };
+    }
+
+    public void checkBalance(BankAccount account){
+        System.out.print("Current balance: "+account.getBalance());
+    }
 
 }

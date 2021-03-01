@@ -11,10 +11,10 @@ public class Admin {
         //allAccounts= myBank.getAccounts();;
     }
 
-    public double totalMoney(){
+    public double totalMoney(List<BankAccount> accounts){
         double totalSum=0;
-        for(int i=0; i< allAccounts.size(); i++){
-            totalSum= totalSum + allAccounts.get(i).getBalance();
+        for(int i=0; i< accounts.size(); i++){
+            totalSum= totalSum + accounts.get(i).getBalance();
         }
         return totalSum;
     }
@@ -31,7 +31,7 @@ public class Admin {
                 return true;
             }
         }
-        if(split[0].equals("transfer")){
+        if(split[0].equals("transfer-to")){
             double value= Double.parseDouble(split[2]);
             if(value>=500){
                 System.out.println("Suspcious activity detected");

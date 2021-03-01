@@ -59,7 +59,7 @@ public class AdminTest {
         bankAccounts.add(bankAccount1);
         bankAccounts.add(bankAccount2);
         bankAccounts.add(bankAccount3);
-        Admin admin1= new Admin(bankAccounts);
+        Admin admin1= new Admin();
         atm.deposit(bankAccount1, 1000,false);
         atm.withdraw(bankAccount1, 100, false);
         atm.transfer(bankAccount1, bankAccount2, 50.00);
@@ -84,7 +84,7 @@ public class AdminTest {
         bankAccounts.add(bankAccount1);
         bankAccounts.add(bankAccount2);
         bankAccounts.add(bankAccount3);
-        Admin admin1= new Admin(bankAccounts);
+        Admin admin1= new Admin();
         atm.deposit(bankAccount1, 1000,false);
         atm.withdraw(bankAccount1, 100, false);
         atm.transfer(bankAccount1, bankAccount2, 50.00);
@@ -111,11 +111,11 @@ public class AdminTest {
         bankAccounts.add(bankAccount1);
         bankAccounts.add(bankAccount2);
         bankAccounts.add(bankAccount3);
-        Admin admin1= new Admin(bankAccounts);
-        assertEquals(admin1.totalMoney(), 900.05);
+        Admin admin1= new Admin();
+        assertEquals(admin1.totalMoney(bankAccounts), 900.05);
         BankAccount bankAccount4= new BankAccount("a@b.com", 10.00, 34567);
         bankAccounts.add(bankAccount4);
-        assertEquals(admin1.totalMoney(), 910.00);
+        assertEquals(admin1.totalMoney(bankAccounts), 910.05);
 
     }
     

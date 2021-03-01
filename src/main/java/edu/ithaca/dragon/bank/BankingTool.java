@@ -37,13 +37,14 @@ public abstract class BankingTool{
     /**
      * @post If amount is valid, adds the amount to the current balance of the bank account. 
      */
-    public void deposit(BankAccount account, double amount){
+    public void deposit(BankAccount account, double amount, boolean wasTransfer){
         if(account.getFrozenStatus()== false){
             if(isAmountValid(amount)){
                 double balance = account.getBalance();
                 balance +=amount;
                 account.setBalance(balance);
-                account.getTransactionHistory().add("deposit "+amount+" balance: "+Double.toString(account.getBalance()));
+                if(!wasTransfer)
+                    account.getTransactionHistory().add("deposit "+amount+" balance: "+Double.toString(account.getBalance()));
             }
             else{
                 throw new IllegalArgumentException("Amount is invalid");
@@ -63,10 +64,10 @@ public abstract class BankingTool{
         if(lender.getFrozenStatus()== false && recipient.getFrozenStatus()== false){
             if(isAmountValid(amount)){
                 withdraw(lender,amount,true);
-                lender.getTransactionHistory().add("transfer "+Integer.toString(recipient.getAccountID())+" "+Double.toString(amount)+" balance: "+Double.toString(lender.getBalance()));
-                deposit(recipient,amount);
+                lender.getTransactionHistory().add("transfer-to "+Integer.toString(recipient.getAccountID())+" "+Double.toString(amount)+" balance: "+Double.toString(lender.getBalance()));
+                deposit(recipient,amount,true);
                 //potentially might want to change
-                recipient.getTransactionHistory().add("deposit "+Double.toString(amount)+" balance: "+Double.toString(recipient.getBalance()));
+                recipient.getTransactionHistory().add("transfer-from "+Integer.toString(lender.getAccountID())+" "+Double.toString(amount)+" balance: "+Double.toString(recipient.getBalance()));
             }
             else{
                 throw new IllegalArgumentException("Amount is invalid");

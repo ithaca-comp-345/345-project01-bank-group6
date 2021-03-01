@@ -63,7 +63,7 @@ public class Bank {
             System.out.println("How much would you like to deposit?");
             String myamount= scan.nextLine();
             double amount= Double.parseDouble(myamount);
-            atm.deposit(testAccount, amount);
+            atm.deposit(testAccount, amount,false);
             System.out.println("Your balance is now " + testAccount.getBalance());
         }
         System.out.println("Let's make another account! Enter your email: ");
@@ -80,6 +80,10 @@ public class Bank {
         String myTransferAmount= scan.nextLine();
         double transferAmount= Double.parseDouble(myTransferAmount);
         atm.transfer(testAccount2, testAccount, transferAmount);
+        // To show transaction went through
+        System.out.println("Confirmation below that transaction went through.\n");
+        atm.displayTransactionHistory(testAccount);
+        atm.displayTransactionHistory(testAccount2);
 
         Admin admin1= new Admin();
         System.out.println("An Admin will now check all your accounts for suspicious activity. Any accounts with suspicious actiity will be frozen");
@@ -109,9 +113,10 @@ public class Bank {
                 System.out.println("Contact an administrator if you would like to unfreeze your accounts");
             }
         }
-        }
+        scan.close();
+    }
 
-
+    
     
     
 }

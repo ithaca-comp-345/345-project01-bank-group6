@@ -61,19 +61,19 @@ class BankingToolTest {
                 bt=new ATM();
             else{bt= new Teller();}
             BankAccount bankAccount= new BankAccount("a@b.com", 200,12345);
-            bt.deposit(bankAccount,100);
+            bt.deposit(bankAccount,100,false);
             assertEquals(bankAccount.getBalance(), 300);
-            bt.deposit(bankAccount,0);
+            bt.deposit(bankAccount,0,false);
             assertEquals(bankAccount.getBalance(), 300);
-            bt.deposit(bankAccount,100.01);
+            bt.deposit(bankAccount,100.01,false);
             assertEquals(bankAccount.getBalance(), 400.01);
-            assertThrows(IllegalArgumentException.class, ()-> bt.deposit(bankAccount,-100));
-            assertThrows(IllegalArgumentException.class, ()-> bt.deposit(bankAccount,100.001));
-            bt.deposit(bankAccount,0.99);
+            assertThrows(IllegalArgumentException.class, ()-> bt.deposit(bankAccount,-100,false));
+            assertThrows(IllegalArgumentException.class, ()-> bt.deposit(bankAccount,100.001,false));
+            bt.deposit(bankAccount,0.99,false);
             assertEquals(bankAccount.getBalance(), 401.00);
             BankAccount bankAccount4= new BankAccount("a@b.com", 500, 12345);
             bankAccount4.setFrozenStatus(true);
-            assertThrows(IllegalArgumentException.class, () -> bt.deposit(bankAccount4, 50));
+            assertThrows(IllegalArgumentException.class, () -> bt.deposit(bankAccount4, 50,false));
         }
 
     }
@@ -120,17 +120,17 @@ class BankingToolTest {
             BankAccount checking1 = new CheckingAccount("a@b.com",500,12345);
             BankAccount checking2 = new CheckingAccount("a@bc.com",500,12345);
             //valid transactions
-            bt.deposit(checking1,100);
+            bt.deposit(checking1,100,false);
             bt.withdraw(checking1,50,false);
             bt.transfer(checking1,checking2,50);
-            bt.deposit(checking1,2.50);
+            bt.deposit(checking1,2.50,false);
             bt.withdraw(checking1,1.25,false);
             bt.transfer(checking1,checking2,1.25);
 
             try{
-                bt.deposit(checking1,100.789);
-                bt.deposit(checking1,-100.789);
-                bt.deposit(checking1,-100);
+                bt.deposit(checking1,100.789,false);
+                bt.deposit(checking1,-100.789,false);
+                bt.deposit(checking1,-100,false);
                 bt.withdraw(checking1,800.789,false);
                 bt.withdraw(checking1,800,false);
                 bt.withdraw(checking1,100.789,false);

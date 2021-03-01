@@ -1,8 +1,8 @@
 package edu.ithaca.dragon.bank;
 public class Teller extends BankingTool{
 
-    public void deposit(BankAccount account, double amount){
-        super.deposit(account,amount);
+    public void deposit(BankAccount account, double amount, boolean wasTransfer){
+        super.deposit(account,amount,wasTransfer);
     }
     public void withdraw(BankAccount account, double amount,boolean wasTransfer) throws InsufficientFundsException{
         super.withdraw(account, amount, wasTransfer);

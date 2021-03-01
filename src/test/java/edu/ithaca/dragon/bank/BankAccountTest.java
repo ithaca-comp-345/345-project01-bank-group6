@@ -115,37 +115,52 @@ class BankAccountTest {
         BankAccount checking2 = new CheckingAccount("a@bc.com",500,12345);
         ArrayList<Double> balances=new ArrayList<>();
         //valid transactions
-        atm.deposit(checking1,100);
+        atm.deposit(checking1,100,false);
         balances.add(checking1.getBalance());
         atm.withdraw(checking1,50,false);
         balances.add(checking1.getBalance());
         atm.transfer(checking1,checking2,50);
         balances.add(checking1.getBalance());
-        atm.deposit(checking1,2.50);
+        atm.deposit(checking1,2.50,false);
         balances.add(checking1.getBalance());
         atm.withdraw(checking1,1.25,false);
         balances.add(checking1.getBalance());
         atm.transfer(checking1,checking2,1.25);
         balances.add(checking1.getBalance());
-        String [] types = new String[]{"deposit","withdraw","transfer","deposit","withdraw","transfer"};
+        String [] types = new String[]{"deposit","withdraw","transfer-to","deposit","withdraw","transfer-to"};
         String [] amounts = new String[]{"100.0","50.0","50.0","2.5","1.25","1.25"};
-        ArrayList<String> transactions = checking1.getTransactionHistory();
-        for (int i=0;i<transactions.size();i++){
-            String[] transaction = transactions.get(i).split(" ");
-            assertEquals(types[i],transaction[0]);
-            if(types[i]=="transfer"){
-                assertEquals(Integer.toString(checking2.getAccountID()),transaction[1]);
-                assertEquals(amounts[i],transaction[2]);
+        ArrayList<String> transactions1 = checking1.getTransactionHistory();
+        for (int i=0;i<transactions1.size();i++){
+            String[] transaction1 = transactions1.get(i).split(" ");
+            assertEquals(types[i],transaction1[0]);
+            if(types[i]=="transfer-to"||types[i]=="transfer-from"){
+                assertEquals(Integer.toString(checking2.getAccountID()),transaction1[1]);
+                assertEquals(amounts[i],transaction1[2]);
             }
             else{
-                assertEquals(amounts[i],transaction[1]);
+                assertEquals(amounts[i],transaction1[1]);
             }
-            assertEquals(Double.toString(balances.get(i)),transaction[transaction.length-1]);
+            assertEquals(Double.toString(balances.get(i)),transaction1[transaction1.length-1]);
+        }
+        ArrayList<String> transactions2 = checking2.getTransactionHistory();
+        
+        for (int i=0;i<transactions2.size();i++){
+            String [] transaction2 = transactions2.get(i).split(" ");
+            assertEquals("transfer-from",transaction2[0]);
+            assertEquals(Integer.toString(checking1.getAccountID()),transaction2[1]);
+            if(i==0){
+                assertEquals(amounts[2],transaction2[2]);
+                assertEquals("550.0",transaction2[transaction2.length-1]);
+            }
+            else{
+                assertEquals(amounts[5],transaction2[2]);
+                assertEquals("551.25",transaction2[transaction2.length-1]);
+            }
         }
         try{
-            atm.deposit(checking1,100.789);
-            atm.deposit(checking1,-100.789);
-            atm.deposit(checking1,-100);
+            atm.deposit(checking1,100.789,false);
+            atm.deposit(checking1,-100.789,false);
+            atm.deposit(checking1,-100,false);
             atm.withdraw(checking1,800.789,false);
             atm.withdraw(checking1,800,false);
             atm.withdraw(checking1,100.789,false);
@@ -160,9 +175,9 @@ class BankAccountTest {
         }
         catch(Exception e){}
         //invalid transactions aren't added to the history
-        ArrayList<String> newTransactions = checking1.getTransactionHistory();
-        for(int i=0;i<transactions.size();i++){
-            assertEquals(transactions.get(i),newTransactions.get(i));
+        ArrayList<String> newTransactions1 = checking1.getTransactionHistory();
+        for(int i=0;i<transactions1.size();i++){
+            assertEquals(transactions1.get(i),newTransactions1.get(i));
         }
         //test for savings account and interest when implemented
         SavingsAccount savings = new SavingsAccount("a@b.com",500,12345);

@@ -60,7 +60,7 @@ public class AdminTest {
         bankAccounts.add(bankAccount2);
         bankAccounts.add(bankAccount3);
         Admin admin1= new Admin(bankAccounts);
-        atm.deposit(bankAccount1, 1000);
+        atm.deposit(bankAccount1, 1000,false);
         atm.withdraw(bankAccount1, 100, false);
         atm.transfer(bankAccount1, bankAccount2, 50.00);
         atm.withdraw(bankAccount1, 550.00, false);
@@ -69,7 +69,7 @@ public class AdminTest {
         assertTrue(admin1.requestSuspiciousAcctReport(bankAccount2));
         atm.withdraw(bankAccount3, 465.75, false);
         atm.transfer(bankAccount3, bankAccount1, 50);
-        atm.deposit(bankAccount3, 100);
+        atm.deposit(bankAccount3, 100, false);
         atm.withdraw(bankAccount3, 100, false);
         assertFalse(admin1.requestSuspiciousAcctReport(bankAccount3));
     }
@@ -85,7 +85,7 @@ public class AdminTest {
         bankAccounts.add(bankAccount2);
         bankAccounts.add(bankAccount3);
         Admin admin1= new Admin(bankAccounts);
-        atm.deposit(bankAccount1, 1000);
+        atm.deposit(bankAccount1, 1000,false);
         atm.withdraw(bankAccount1, 100, false);
         atm.transfer(bankAccount1, bankAccount2, 50.00);
         atm.withdraw(bankAccount1, 550.00, false);
@@ -94,7 +94,7 @@ public class AdminTest {
         assertTrue(admin1.requestSuspiciousAcctReport(bankAccount2));
         atm.withdraw(bankAccount3, 465.75, false);
         atm.transfer(bankAccount3, bankAccount1, 50);
-        atm.deposit(bankAccount3, 100);
+        atm.deposit(bankAccount3, 100,false);
         atm.withdraw(bankAccount3, 100, false);
         assertFalse(admin1.requestSuspiciousAcctReport(bankAccount3));
         ArrayList<BankAccount> badAccounts= admin1.susReportV2(bankAccounts);
